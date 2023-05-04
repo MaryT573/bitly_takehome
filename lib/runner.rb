@@ -5,7 +5,6 @@ filename = "../data/decodes.json"
 input = ARGV[0].to_i
 if input != 0
     var = ARGV[0].split('')
-    arr = []
     if var.count == 4
         click = Click.new(filepath).decode_access(filename, ARGV[0])   
     else 
