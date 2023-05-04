@@ -17,7 +17,6 @@ class Click
     def decode_access(filename, date)
         start = File.read(filename)
         file = JSON.parse(start, symbolize_names: true)
-        #require 'pry'; binding.pry 
         file.each do |x|
             if x[:timestamp].split("")[0..3].join("") == date && @counter.has_key?(x[:bitlink].split("")[-7..-1].join(""))
                 @counter[x[:bitlink].split("")[-7..-1].join("")] += 1
@@ -34,7 +33,6 @@ class Click
         compared = Hash.new
         clicks = @counter.values
         @encode.each do |x, y|
-            #require 'pry'; binding.pry 
             compared[x] = clicks[count]
             count += 1
         end
