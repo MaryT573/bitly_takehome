@@ -14,11 +14,12 @@ class Click
     #this accesses the JSON file and then checks that the date is == to 2021 and the hash in the url matches 
     #the ones from the CSV file. Once it checks that these conditions are true it adds 1 to the values counter hash
     #connected to the key relating to the hash in that click 
-    def decode_access(filename)
+    def decode_access(filename, date)
         start = File.read(filename)
         file = JSON.parse(start, symbolize_names: true)
+        #require 'pry'; binding.pry 
         file.each do |x|
-            if x[:timestamp].split("")[0..3].join("") == "2021" && @counter.has_key?(x[:bitlink].split("")[-7..-1].join(""))
+            if x[:timestamp].split("")[0..3].join("") == date && @counter.has_key?(x[:bitlink].split("")[-7..-1].join(""))
                 @counter[x[:bitlink].split("")[-7..-1].join("")] += 1
             end
         end
@@ -33,7 +34,8 @@ class Click
         compared = Hash.new
         clicks = @counter.values
         @encode.each do |x, y|
-            compared[x] =clicks[count]
+            #require 'pry'; binding.pry 
+            compared[x] = clicks[count]
             count += 1
         end
         comparison = compared.invert.sort.reverse
